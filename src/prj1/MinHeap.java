@@ -24,11 +24,19 @@ public class MinHeap {
      */
     public MinHeap(int n, int d) {
         // TODO complete
+        nodes = new HeapNode[n];
+        this.d = d;
     }
 
 
     /**
      * This method inserts a new element with "id" and "value" into the min-heap
+     * 
+     * min heap: min priority item is stored at 0
+     * the top of the tree is stored at 0, 1-d are its children
+     * Thus, the parent of the item at position i
+     * is the item at position (i − 1)/d and its children are the 
+     * items at positions di + 1 through di + d
      * 
      * @param id
      * @param value
@@ -61,7 +69,8 @@ public class MinHeap {
      * @param newValue
      */
     public void decreaseKey(int id, int newValue) {
-        // TODO complete
+        // TODO complete: find node with id and then update new value
+
     }
 
 
