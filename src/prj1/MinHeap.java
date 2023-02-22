@@ -10,6 +10,7 @@ package prj1;
 public class MinHeap {
     // The parameter d in the d-ary min-heap
     private int d;
+    private int count;
 
     // The array representation of your min-heap (It is not required to use this)
     private HeapNode[] nodes;
@@ -26,6 +27,7 @@ public class MinHeap {
         // TODO complete
         nodes = new HeapNode[n];
         this.d = d;
+        count = 0;
     }
 
 
@@ -42,7 +44,8 @@ public class MinHeap {
      * @param value
      */
     public void insert(int id, int value) {
-        // TODO complete
+        HeapNode newNode = new HeapNode(id, value);
+        nodes[count++] = newNode;
     }
 
 
@@ -56,8 +59,9 @@ public class MinHeap {
      *         you should return the array [5, 1]
      */
     public int[] extractMin() {
-        // TODO complete
-        return null;
+        int[] minArray = {nodes[0].getId(), nodes[0].getValue()};
+        return minArray;
+        //TODO: remove min
     }
 
 
@@ -70,7 +74,6 @@ public class MinHeap {
      */
     public void decreaseKey(int id, int newValue) {
         // TODO complete: find node with id and then update new value
-
     }
 
 
@@ -80,8 +83,12 @@ public class MinHeap {
      * @return the array representation of heap
      */
     public int[] getHeap() {
-        // TODO complete
-        return null;
+        int[] nodeValues = new int[count];
+        for (int i = 0; i < count; i++)
+        {
+            nodeValues[i] = nodes[i].getValue();
+        }
+        return nodeValues;
     }
 
 
