@@ -12,7 +12,8 @@ public class MinHeap {
     private int d;
     private int count;
 
-    // The array representation of your min-heap (It is not required to use this)
+    // The array representation of your min-heap (It is not required to use
+    // this)
     private HeapNode[] nodes;
 
     /**
@@ -37,15 +38,20 @@ public class MinHeap {
      * min heap: min priority item is stored at 0
      * the top of the tree is stored at 0, 1-d are its children
      * Thus, the parent of the item at position i
-     * is the item at position (i − 1)/d and its children are the 
+     * is the item at position (i − 1)/d and its children are the
      * items at positions di + 1 through di + d
      * 
      * @param id
      * @param value
      */
     public void insert(int id, int value) {
+        // Append new node to the end of the array
         HeapNode newNode = new HeapNode(id, value);
         nodes[count++] = newNode;
+        
+        // Swap elements until the min-heap property is satisfied
+        boolean minHeap = false;
+        
     }
 
 
@@ -59,9 +65,9 @@ public class MinHeap {
      *         you should return the array [5, 1]
      */
     public int[] extractMin() {
-        int[] minArray = {nodes[0].getId(), nodes[0].getValue()};
+        int[] minArray = { nodes[0].getId(), nodes[0].getValue() };
         return minArray;
-        //TODO: remove min
+        // TODO: remove min
     }
 
 
@@ -84,8 +90,7 @@ public class MinHeap {
      */
     public int[] getHeap() {
         int[] nodeValues = new int[count];
-        for (int i = 0; i < count; i++)
-        {
+        for (int i = 0; i < count; i++) {
             nodeValues[i] = nodes[i].getValue();
         }
         return nodeValues;
