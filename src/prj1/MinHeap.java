@@ -48,10 +48,32 @@ public class MinHeap {
         // Append new node to the end of the array
         HeapNode newNode = new HeapNode(id, value);
         nodes[count++] = newNode;
-        
+
         // Swap elements until the min-heap property is satisfied
-        boolean minHeap = false;
-        
+        while (true) {
+            HeapNode temp;
+            int correctNodes = 0;
+            
+            // Iterate through the heap
+            for (int i = 1; i < count; i++) {
+                
+                // If a node has a value less than their parent then switch
+                if (nodes[i].getValue() < nodes[(i - 1) / d].getValue()) {
+                    temp = nodes[i];
+                    nodes[i] = nodes[(i - 1) / d];
+                    nodes[(i - 1) / d] = temp;
+                }
+                // If the node satisfies min heap then increment
+                else {
+                    correctNodes++;
+                }
+            }
+            // When every node (except the first) is correct then we break
+            if (correctNodes == count - 1) {
+                break;
+            }
+        }
+
     }
 
 
