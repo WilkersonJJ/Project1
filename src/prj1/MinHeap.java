@@ -25,7 +25,6 @@ public class MinHeap {
      *            parameter d in the d-ary min-heap
      */
     public MinHeap(int n, int d) {
-        // TODO complete
         nodes = new HeapNode[n];
         this.d = d;
         count = 0;
@@ -50,29 +49,7 @@ public class MinHeap {
         nodes[count++] = newNode;
 
         // Swap elements until the min-heap property is satisfied
-        while (true) {
-            HeapNode temp;
-            int correctNodes = 0;
-            
-            // Iterate through the heap
-            for (int i = 1; i < count; i++) {
-                
-                // If a node has a value less than their parent then switch
-                if (nodes[i].getValue() < nodes[(i - 1) / d].getValue()) {
-                    temp = nodes[i];
-                    nodes[i] = nodes[(i - 1) / d];
-                    nodes[(i - 1) / d] = temp;
-                }
-                // If the node satisfies min heap then increment
-                else {
-                    correctNodes++;
-                }
-            }
-            // When every node (except the first) is correct then we break
-            if (correctNodes == count - 1) {
-                break;
-            }
-        }
+        heapify();
 
     }
 
@@ -95,6 +72,56 @@ public class MinHeap {
         count--;
         
         // Swap elements until the min-heap property is satisfied
+        heapify();
+        
+        return minArray;
+        
+        
+    }
+
+
+    /**
+     * This method takes an id and a new value newValue for the corresponding
+     * node, and updates the data structure accordingly
+     * 
+     * @param id
+     * @param newValue
+     */
+    public void decreaseKey(int id, int newValue) {
+        
+        // Find the correct node
+        int i = 0;
+        while (i < count) {
+            if (nodes[i].getId() == id) {
+                break;
+            }
+            i++;
+        }
+        
+        // Update value and heapify
+        nodes[i].setValue(newValue);
+        heapify();
+    }
+
+
+    /**
+     * This method returns the array representation of heap
+     * 
+     * @return the array representation of heap
+     */
+    public int[] getHeap() {
+        int[] nodeValues = new int[count];
+        for (int i = 0; i < count; i++) {
+            nodeValues[i] = nodes[i].getValue();
+        }
+        return nodeValues;
+    }
+    
+    /**
+     * Helper method that takes a modified heap and swaps elements 
+     * until the min-heap property is satisfied
+     */
+    private void heapify() {
         while (true) {
             HeapNode temp;
             int correctNodes = 0;
@@ -118,36 +145,6 @@ public class MinHeap {
                 break;
             }
         }
-        
-        return minArray;
-        
-        
-    }
-
-
-    /**
-     * This method takes an id and a new value newValue for the corresponding
-     * node, and updates the data structure accordingly
-     * 
-     * @param id
-     * @param newValue
-     */
-    public void decreaseKey(int id, int newValue) {
-        // TODO complete: find node with id and then update new value
-    }
-
-
-    /**
-     * This method returns the array representation of heap
-     * 
-     * @return the array representation of heap
-     */
-    public int[] getHeap() {
-        int[] nodeValues = new int[count];
-        for (int i = 0; i < count; i++) {
-            nodeValues[i] = nodes[i].getValue();
-        }
-        return nodeValues;
     }
 
 
