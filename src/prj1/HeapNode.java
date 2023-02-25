@@ -19,7 +19,7 @@ public class HeapNode {
      * @param value
      */
     public HeapNode(int id, int value) {
-        this.id = id;
+        this.id = id; 
         this.value = value;
     }
 

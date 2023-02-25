@@ -4,7 +4,8 @@ package prj1;
  * The implementation of Dijkstras shortest path algorithm by using a simple
  * linear search to find the unvisited node with the minimum distance estimate
  * 
- * @author Enter your names here
+ * @author Jasper Wilkeron
+ * @author Jade Sherer
  * @version 1.1
  */
 public class DijkstrasWithoutHeap {

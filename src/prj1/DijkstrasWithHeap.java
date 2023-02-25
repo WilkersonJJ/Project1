@@ -5,7 +5,8 @@ package prj1;
  * The implementation of Dijkstras shortest path algorithm by using
  * min-heaps
  * 
- * @author Enter your names here
+ * @author Jasper Wilkerson
+ * @author Jade Sherer
  */
 public class DijkstrasWithHeap {
 
