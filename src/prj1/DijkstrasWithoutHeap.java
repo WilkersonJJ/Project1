@@ -1,5 +1,7 @@
 package prj1;
 
+import java.util.ArrayList;
+
 /**
  * The implementation of Dijkstras shortest path algorithm by using a simple
  * linear search to find the unvisited node with the minimum distance estimate
@@ -9,6 +11,9 @@ package prj1;
  * @version 1.1
  */
 public class DijkstrasWithoutHeap {
+    int [] distances;
+    int [] prev;
+    ArrayList<int[]> unexplored;
 
     /**
      * Constructor of the class
@@ -22,7 +27,16 @@ public class DijkstrasWithoutHeap {
      *            end-points of the i-th edge and edges[i][2] is its weight
      */
     public DijkstrasWithoutHeap(int n, int[][] edges) {
-        // TODO complete
+        // Set up stuffs
+        distances = new int[edges.length];
+        prev = new int[edges.length];
+        unexplored = new ArrayList<int[]>();
+        
+        for (int i = 0; i < n; i++) {
+            distances[i] = Integer.MAX_VALUE;
+            prev[i] = -1;
+            unexplored.add(edges[i]);
+        }
     }
 
 
@@ -37,7 +51,9 @@ public class DijkstrasWithoutHeap {
      *         of node i from the source
      */
     public int[] run(int source) {
-        // TODO Complete
+        while (unexplored.size() > 0) {
+            
+        }
         return null;
     }
 
