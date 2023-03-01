@@ -12,8 +12,8 @@ import java.util.ArrayList;
  */
 public class DijkstrasWithoutHeap {
     int [] distances;
-    int [] prev;
-    ArrayList<int[]> unexplored;
+    int [] unexplored;
+    int exploredNodes;
 
     /**
      * Constructor of the class
@@ -27,15 +27,19 @@ public class DijkstrasWithoutHeap {
      *            end-points of the i-th edge and edges[i][2] is its weight
      */
     public DijkstrasWithoutHeap(int n, int[][] edges) {
-        // Set up stuffs
+        // Each element is the distance from the vertex to the source
         distances = new int[edges.length];
-        prev = new int[edges.length];
-        unexplored = new ArrayList<int[]>();
         
+        // Each element is -1 for an unexplored vertex, or 1 for an explored vertex
+        unexplored = new int[edges.length];
+        
+        // The number of nodes that are explored
+        exploredNodes = 0;
+        
+        // Each distance starts at infinity and each node as unexplored
         for (int i = 0; i < n; i++) {
             distances[i] = Integer.MAX_VALUE;
-            prev[i] = -1;
-            unexplored.add(edges[i]);
+            unexplored[i] = -1;
         }
     }
 
@@ -51,7 +55,8 @@ public class DijkstrasWithoutHeap {
      *         of node i from the source
      */
     public int[] run(int source) {
-        while (unexplored.size() > 0) {
+        distances[source] = 0;
+        while (exploredNodes < unexplored.length) {
             
         }
         return null;
