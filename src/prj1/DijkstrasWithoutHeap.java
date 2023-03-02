@@ -51,13 +51,13 @@ public class DijkstrasWithoutHeap {
      *         of node i from the source
      */
     public int[] run(int source) {
-        distances[source] = 0; //distance from source to source is 0
+        distances[source - 1] = 0; //distance from source to source is 0, stored one back
         for (int count = 0; count < unexplored.length - 1; count++) {
             
             //find the node with the shortest distance from source
             int min = Integer.MAX_VALUE;
             int closestNode = -1;
-            //loop through vertices
+            //loop through vertices and get the one with the lowest distance
             for (int vertex = 0; vertex < unexplored.length; vertex++)
             {
                 //if unexplored and the distance is lower than min, grab those values
@@ -77,15 +77,24 @@ public class DijkstrasWithoutHeap {
             {
                 //update the distances to each vertex only if
                 //vertex is unexplored, there is a edge between those nodes
+                //if we actually found a distance for closest node
                 //and if the distance is smaller than the current value (we need to find the shortest path ofc)
                 if((unexplored[vertex] == -1) 
-                    && (edges[closestNode][vertex] != 0) //THIS IS THE LINE W ISSUE
+                    && (edges[closestNode][vertex] != 0)
                     && (distances[closestNode] != Integer.MAX_VALUE)
                     && (distances[closestNode] + edges[closestNode][vertex] < distances[vertex]))
                 {
                     //now we update the distance in the array
                     distances[vertex] = distances[closestNode] + edges[closestNode][vertex];
                 }
+            }
+        }
+        //check that everyone has been explored, otherwise they are -1
+        for(int i = 0; i < unexplored.length; i++)
+        {
+            if(unexplored[i] == -1)
+            {
+                distances[i] = -1;
             }
         }
         return distances;
@@ -96,6 +105,7 @@ public class DijkstrasWithoutHeap {
      */
     private int[][] adjacencyList(int[][] edges, int n)
     {
+        //this list stores everything one back so node 1 is at index 0
         int[][] adjList = new int[n][n];
         //fill adjList with 0
         for (int i = 0; i < n; i++)
@@ -108,8 +118,8 @@ public class DijkstrasWithoutHeap {
         //iterate through edges, the value at the adjacency list is the weight
         for(int i = 0; i < edges.length; i++)
         {
-            adjList[edges[i][0]][edges[i][1]] = edges[i][2];
-            adjList[edges[i][1]][edges[i][0]] = edges[i][2]; //reversed for consistency
+            adjList[edges[i][0] - 1][edges[i][1] - 1] = edges[i][2];
+            adjList[edges[i][1] - 1][edges[i][0] - 1] = edges[i][2]; //reversed for consistency
         }
         return adjList;
     }
