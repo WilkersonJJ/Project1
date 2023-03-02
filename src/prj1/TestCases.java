@@ -141,8 +141,8 @@ public class TestCases {
         // or not
         for (int i = 0; i < n; i++) {
             assertEquals(
-                "There seems to be a problem with your dijkstrasWithHeap implementation",
-                distancesWith[i], expectedDistances[i]);
+                 "There seems to be a problem with your dijkstrasWithHeap implementation",
+                 distancesWith[i], expectedDistances[i]);
         }
 
         // Running the Dijkstras implementation that does not use the min-heap

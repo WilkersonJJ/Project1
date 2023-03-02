@@ -1,7 +1,5 @@
 package prj1;
 
-import java.util.ArrayList;
-
 /**
  * The implementation of Dijkstras shortest path algorithm by using a simple
  * linear search to find the unvisited node with the minimum distance estimate
@@ -13,7 +11,7 @@ import java.util.ArrayList;
 public class DijkstrasWithoutHeap {
     int [] distances;
     int [] unexplored;
-    int exploredNodes;
+    int [][] edges;
 
     /**
      * Constructor of the class
@@ -27,15 +25,15 @@ public class DijkstrasWithoutHeap {
      *            end-points of the i-th edge and edges[i][2] is its weight
      */
     public DijkstrasWithoutHeap(int n, int[][] edges) {
-        // Each element is the distance from the vertex to the source
+        // Each element is the distance from the vertex to the source, this is the output array
         distances = new int[edges.length];
-        
+
+        //copy over the edges so we can use them in our run method
+        this.edges = edges;
+
         // Each element is -1 for an unexplored vertex, or 1 for an explored vertex
         unexplored = new int[edges.length];
-        
-        // The number of nodes that are explored
-        exploredNodes = 0;
-        
+
         // Each distance starts at infinity and each node as unexplored
         for (int i = 0; i < n; i++) {
             distances[i] = Integer.MAX_VALUE;
@@ -48,7 +46,7 @@ public class DijkstrasWithoutHeap {
      * This method computes and returns the distances of all nodes of the graph
      * from the source node
      * 
-     * @param source
+     * @param source 
      * 
      * @return an array containing the distances of the nodes of the graph from
      *         source. Element i of the returned array represents the distance
@@ -56,10 +54,43 @@ public class DijkstrasWithoutHeap {
      */
     public int[] run(int source) {
         distances[source] = 0;
-        while (exploredNodes < unexplored.length) {
+        for (int count = 0; count < unexplored.length - 1; count++) {
             
+            //find the node with the shortest distance from source
+            int min = Integer.MAX_VALUE;
+            int closestNode = -1;
+            //loop through vertices
+            for (int vertex = 0; vertex < unexplored.length; vertex++)
+            {
+                //if unexplored and the distance is lower than min, grab those values
+                if(unexplored[vertex] == -1 && distances[vertex] <= min)
+                {
+                    min = distances[vertex];
+                    closestNode = vertex;
+                }
+            }
+
+            //mark that node as explored
+            unexplored[closestNode] = 1;
+
+            //iterate through the rest of the vertices and update their distance values..
+            //..to be distanceFromClosest + closestDistanceFromSource
+            for (int vertex = 0; vertex < unexplored.length; vertex++)
+            {
+                //update the distances to each vertex only if
+                //vertex is unexplored, there is a edge between those nodes
+                //and if the distance is smaller than the current value (we need to find the shortest path ofc)
+                if((unexplored[vertex] == -1) 
+                    && (edges[closestNode][vertex] != 0)
+                    && (distances[closestNode] != Integer.MAX_VALUE)
+                    && (distances[closestNode] + edges[closestNode][vertex] < distances[vertex]))
+                {
+                    //now we update the distance in the array
+                    distances[vertex] = distances[closestNode] + edges[closestNode][vertex];
+                }
+            }
         }
-        return null;
+        return distances;
     }
 
 }

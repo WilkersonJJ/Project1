@@ -9,7 +9,9 @@ package prj1;
  * @author Jade Sherer
  */
 public class DijkstrasWithHeap {
-
+    int [] distances;
+    int [] explored;
+    MinHeap heap;
     /**
      * Constructor of the class
      * 
@@ -22,7 +24,16 @@ public class DijkstrasWithHeap {
      *            end-points of the i-th edge and edges[i][2] is its weight
      */
     public DijkstrasWithHeap(int n, int[][] edges) {
-        //TODO complete
+        heap = new MinHeap(n, 2);
+        for (int index = 0; index < n; index++)
+        {
+            //set all distances to be infinity
+            heap.insert(index, Integer.MAX_VALUE);
+            //set all to -1 for unexplored
+            explored[index] = -1;
+        }
+        //set the distance of 0 to 0 to be 0
+        heap.decreaseKey(0, 0);
     }
 
 
@@ -38,7 +49,7 @@ public class DijkstrasWithHeap {
      */
     public int[] run(int source) {
         //TODO complete
-        return null;
+        return distances;
     }
 
 }
