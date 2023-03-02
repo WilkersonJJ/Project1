@@ -25,14 +25,14 @@ public class DijkstrasWithoutHeap {
      *            end-points of the i-th edge and edges[i][2] is its weight
      */
     public DijkstrasWithoutHeap(int n, int[][] edges) {
-        // Each element is the distance from the vertex to the source, this is the output array
-        distances = new int[edges.length];
+        // Each element is the distance from the vertex to the source, distances is the output array
+        distances = new int[n];
 
         //copy over the edges so we can use them in our run method
-        this.edges = edges;
+        this.edges = adjacencyList(edges, n);
 
         // Each element is -1 for an unexplored vertex, or 1 for an explored vertex
-        unexplored = new int[edges.length];
+        unexplored = new int[n];
 
         // Each distance starts at infinity and each node as unexplored
         for (int i = 0; i < n; i++) {
@@ -40,8 +40,6 @@ public class DijkstrasWithoutHeap {
             unexplored[i] = -1;
         }
     }
-
-
     /**
      * This method computes and returns the distances of all nodes of the graph
      * from the source node
@@ -53,7 +51,7 @@ public class DijkstrasWithoutHeap {
      *         of node i from the source
      */
     public int[] run(int source) {
-        distances[source] = 0;
+        distances[source] = 0; //distance from source to source is 0
         for (int count = 0; count < unexplored.length - 1; count++) {
             
             //find the node with the shortest distance from source
@@ -81,7 +79,7 @@ public class DijkstrasWithoutHeap {
                 //vertex is unexplored, there is a edge between those nodes
                 //and if the distance is smaller than the current value (we need to find the shortest path ofc)
                 if((unexplored[vertex] == -1) 
-                    && (edges[closestNode][vertex] != 0)
+                    && (edges[closestNode][vertex] != 0) //THIS IS THE LINE W ISSUE
                     && (distances[closestNode] != Integer.MAX_VALUE)
                     && (distances[closestNode] + edges[closestNode][vertex] < distances[vertex]))
                 {
@@ -92,5 +90,27 @@ public class DijkstrasWithoutHeap {
         }
         return distances;
     }
-
+    /**
+     * private helper method to change the list of edges to an adjacency list
+     * @return the adjacency list
+     */
+    private int[][] adjacencyList(int[][] edges, int n)
+    {
+        int[][] adjList = new int[n][n];
+        //fill adjList with 0
+        for (int i = 0; i < n; i++)
+        {
+            for(int j = 0; j < n; j++)
+            {
+                adjList[i][j] = 0;
+            }
+        }
+        //iterate through edges, the value at the adjacency list is the weight
+        for(int i = 0; i < edges.length; i++)
+        {
+            adjList[edges[i][0]][edges[i][1]] = edges[i][2];
+            adjList[edges[i][1]][edges[i][0]] = edges[i][2]; //reversed for consistency
+        }
+        return adjList;
+    }
 }
