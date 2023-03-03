@@ -92,10 +92,11 @@ public class DijkstrasWithHeap {
         return distances;
     }
     /**
-     * 
-     * @param edges
-     * @param n
-     * @return
+     * this function creates the adjacency list, taking in the 2d array of edges and 
+     * returning an ArrayList of Lists which then contains a 2 wide array. 
+     * @param edges the input 2d array
+     * @param n the number of vertices
+     * @return the ArrayList containing vertices and their connections and weights
      */
     private ArrayList<List<int[]>> adjacencyList(int[][] edges, int n)
     {
@@ -117,6 +118,15 @@ public class DijkstrasWithHeap {
         }
         return adjList;
     }
+    /**
+     * this function finds the vertex in the list and returns the 
+     * 2 long array
+     * array[0] is the vertex id
+     * array[1] is the weight
+     * @param list the list to search through
+     * @param v the vertex to find in the list
+     * @return int array with two values
+     */
     private int[] getArrForVertex(List<int[]> list, int v)
     {
         for (int i = 0; i < list.size(); i++)

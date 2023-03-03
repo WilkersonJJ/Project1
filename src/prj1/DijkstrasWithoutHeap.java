@@ -6,7 +6,7 @@ import java.util.List;
  * The implementation of Dijkstras shortest path algorithm by using a simple
  * linear search to find the unvisited node with the minimum distance estimate
  * 
- * @author Jasper Wilkeron
+ * @author Jasper Wilkerson
  * @author Jade Sherer
  * @version 1.1
  */
@@ -101,8 +101,10 @@ public class DijkstrasWithoutHeap {
         return distances;
     }
     /**
-     * private helper method to change the list of edges to an adjacency list
-     * @return the adjacency list
+     * helper method which creates the ArrayList from the 2d array of edges
+     * @param edges the input 2d array
+     * @param n the number of vertices
+     * @return the ArrayList containing vertices, their connections and their weights
      */
     private ArrayList<List<int[]>> adjacencyList(int[][] edges, int n)
     {
@@ -124,6 +126,15 @@ public class DijkstrasWithoutHeap {
         }
         return adjList;
     }
+    /**
+     * this function finds the vertex in the list and returns the 
+     * 2 long array
+     * array[0] is the vertex id
+     * array[1] is the weight
+     * @param list the list to search through
+     * @param v the vertex to find in the list
+     * @return int array with two values
+     */
     private int[] getArrForVertex(List<int[]> list, int v)
     {
         for (int i = 0; i < list.size(); i++)
