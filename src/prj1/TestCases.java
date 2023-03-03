@@ -134,15 +134,15 @@ public class TestCases {
         int[] expectedDistances = { 50, 0, 10, 30, 40 };
 
         // Running the Dijkstras implementation that uses the min-heap
-        //DijkstrasWithHeap dWith = new DijkstrasWithHeap(n, edges);
-        //int[] distancesWith = dWith.run(source);
+        DijkstrasWithHeap dWith = new DijkstrasWithHeap(n, edges);
+        int[] distancesWith = dWith.run(source);
 
         // Checking whether the returned distances match the expected distances
         // or not
         for (int i = 0; i < n; i++) {
-            // assertEquals(
-            //      "There seems to be a problem with your dijkstrasWithHeap implementation",
-            //      distancesWith[i], expectedDistances[i]);
+            assertEquals(
+                  "There seems to be a problem with your dijkstrasWithHeap implementation",
+                  distancesWith[i], expectedDistances[i]);
         }
 
         // Running the Dijkstras implementation that does not use the min-heap
@@ -152,10 +152,9 @@ public class TestCases {
         // Checking whether the returned distances match the expected distances
         // or not
         for (int i = 0; i < n; i++) {
-            System.out.println(distancesWithout[i]);
-            // assertEquals(
-            //     "There seems to be a problem with your dijkstrasWithoutHeap implementation",
-            //     distancesWithout[i], expectedDistances[i]);
+            assertEquals(
+                 "There seems to be a problem with your dijkstrasWithoutHeap implementation",
+                 distancesWithout[i], expectedDistances[i]);
         }
     }
 

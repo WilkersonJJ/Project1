@@ -1,4 +1,6 @@
 package prj1;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The implementation of Dijkstras shortest path algorithm by using a simple
@@ -11,7 +13,7 @@ package prj1;
 public class DijkstrasWithoutHeap {
     int [] distances;
     int [] unexplored;
-    int [][] edges;
+    ArrayList<List<int[]>> edges;
 
     /**
      * Constructor of the class
@@ -52,7 +54,7 @@ public class DijkstrasWithoutHeap {
      */
     public int[] run(int source) {
         distances[source - 1] = 0; //distance from source to source is 0, stored one back
-        for (int count = 0; count < unexplored.length - 1; count++) {
+        for (int count = 0; count < unexplored.length; count++) {
             
             //find the node with the shortest distance from source
             int min = Integer.MAX_VALUE;
@@ -67,7 +69,6 @@ public class DijkstrasWithoutHeap {
                     closestNode = vertex;
                 }
             }
-
             //mark that node as explored
             unexplored[closestNode] = 1;
 
@@ -80,12 +81,12 @@ public class DijkstrasWithoutHeap {
                 //if we actually found a distance for closest node
                 //and if the distance is smaller than the current value (we need to find the shortest path ofc)
                 if((unexplored[vertex] == -1) 
-                    && (edges[closestNode][vertex] != 0)
+                    && (getArrForVertex(edges.get(closestNode), vertex)[1] != -1)
                     && (distances[closestNode] != Integer.MAX_VALUE)
-                    && (distances[closestNode] + edges[closestNode][vertex] < distances[vertex]))
+                    && (distances[closestNode] + getArrForVertex(edges.get(closestNode), vertex)[1] < distances[vertex]))
                 {
                     //now we update the distance in the array
-                    distances[vertex] = distances[closestNode] + edges[closestNode][vertex];
+                    distances[vertex] = distances[closestNode] + getArrForVertex(edges.get(closestNode), vertex)[1];
                 }
             }
         }
@@ -103,24 +104,36 @@ public class DijkstrasWithoutHeap {
      * private helper method to change the list of edges to an adjacency list
      * @return the adjacency list
      */
-    private int[][] adjacencyList(int[][] edges, int n)
+    private ArrayList<List<int[]>> adjacencyList(int[][] edges, int n)
     {
-        //this list stores everything one back so node 1 is at index 0
-        int[][] adjList = new int[n][n];
-        //fill adjList with 0
-        for (int i = 0; i < n; i++)
-        {
-            for(int j = 0; j < n; j++)
-            {
-                adjList[i][j] = 0;
-            }
+        // Creates an adjacency list and populates it with empty sub-lists
+        ArrayList<List<int[]>> adjList = new ArrayList<List<int[]>>(n);
+        for (int i = 0; i < n; i++) {
+            adjList.add(new ArrayList<int[]>());
         }
-        //iterate through edges, the value at the adjacency list is the weight
-        for(int i = 0; i < edges.length; i++)
-        {
-            adjList[edges[i][0] - 1][edges[i][1] - 1] = edges[i][2];
-            adjList[edges[i][1] - 1][edges[i][0] - 1] = edges[i][2]; //reversed for consistency
+        //takes in both vertices, plop them in adjList
+        for (int i = 0; i < edges.length; i++) {
+            int one = edges[i][0];
+            int two = edges[i][1];
+            
+            int[] arr1 = {two - 1, edges[i][2]};
+            adjList.get(one - 1).add(arr1);
+            
+            int[] arr2 = {one - 1, edges[i][2]};
+            adjList.get(two - 1).add(arr2);
         }
         return adjList;
+    }
+    private int[] getArrForVertex(List<int[]> list, int v)
+    {
+        for (int i = 0; i < list.size(); i++)
+        {
+            if (list.get(i)[0] == v)
+            {
+                return list.get(i);
+            }
+        }
+        int[] nullArray = {-1, -1};
+        return nullArray;
     }
 }
