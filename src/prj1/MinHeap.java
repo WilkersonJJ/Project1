@@ -49,7 +49,7 @@ public class MinHeap {
         nodes[count++] = newNode;
 
         // Swap elements until the min-heap property is satisfied
-        heapifyUp();
+        heapifyUp(count - 1);
 
     }
 
@@ -100,7 +100,7 @@ public class MinHeap {
         
         // Update value and heapify
         nodes[i].setValue(newValue);
-        heapifyDown();
+        heapifyUp(i);
     }
 
 
@@ -151,9 +151,9 @@ public class MinHeap {
      * Helper method that takes a modified heap and swaps elements up
      * until the min-heap property is satisfied
      */
-    private void heapifyUp() {
+    private void heapifyUp(int start) {
         // While the new element is smaller than it's parent, swap it upwards until the heapify property is satisfied
-        int currentIndex = count - 1;
+        int currentIndex = start;
         int parentIndex = (currentIndex - 1) / d;
         HeapNode temp;
         while( nodes[currentIndex].getValue() < nodes[parentIndex].getValue() ) {

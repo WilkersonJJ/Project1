@@ -24,7 +24,7 @@ public class TimeComparator {
         // and graph_3, we expect to see that the Dijkstra's without heap
         // perform better while for graph_4, graph_5, and graph_6 we expect to
         // find Dijkstra's with heap to be more efficient
-        Graph graph = readFile("graphs/graph_1.txt");
+        Graph graph = readFile("graphs/graph_3.txt");
 
         // number of repeating the test
         int n = 30;
