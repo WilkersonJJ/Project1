@@ -53,10 +53,15 @@ public class DijkstrasWithHeap {
      */
     public int[] run(int source) {
         distances[source - 1] = 0; //distance from source to source is 0, stored one back
-        heap.decreaseKey(source - 1, 0);
+        heap.decreaseKey(source - 1, 0); //set the source distance to be 0
+
         while (!heap.isEmpty()) {
-            
             int[] min = heap.extractMin();
+            //if our min is the max value, then we have come to the end of the graph
+            if (min[1] == Integer.MAX_VALUE)
+            {
+                break;
+            }
             unexplored[min[0]] = 1;
             for (int i = 0; i < unexplored.length; i++)
             {
@@ -67,9 +72,12 @@ public class DijkstrasWithHeap {
                 //then update its distance
                 if ((unexplored[i] == -1) 
                 && (getArrForVertex(edges.get(min[0]), i)[1] != -1)
+                && (distances[min[0]] != Integer.MAX_VALUE)
                 && (distances[min[0]] + getArrForVertex(edges.get(min[0]), i)[1] < distances[i]))
                 {
-                    distances[i] = distances[min[0]] + getArrForVertex(edges.get(min[0]), i)[1];
+                    int newValue = distances[min[0]] + getArrForVertex(edges.get(min[0]), i)[1];
+                    distances[i] = newValue;
+                    heap.decreaseKey(i, newValue);
                 }
             }
         }

@@ -93,7 +93,7 @@ public class DijkstrasWithoutHeap {
         //check that everyone has been explored, otherwise they are -1
         for(int i = 0; i < unexplored.length; i++)
         {
-            if(unexplored[i] == -1)
+            if(unexplored[i] == -1 || distances[i] == Integer.MAX_VALUE)
             {
                 distances[i] = -1;
             }

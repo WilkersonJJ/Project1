@@ -182,6 +182,7 @@ public class TestCases {
         // Checking whether the returned distances match the expected distances
         // or not
         for (int i = 0; i < n; i++) {
+            System.out.println(distancesWith[i]);
             assertEquals(distancesWith[i], expectedDistances[i]);
         }
 
