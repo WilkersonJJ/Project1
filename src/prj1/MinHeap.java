@@ -72,7 +72,7 @@ public class MinHeap {
         count--;
         
         // Swap elements until the min-heap property is satisfied
-        heapifyDown();
+        heapifyDown(0);
         
         return minArray;
         
@@ -121,30 +121,26 @@ public class MinHeap {
      * Helper method that takes a modified heap and swaps elements down
      * until the min-heap property is satisfied
      */
-    private void heapifyDown() {
-        while (true) {
-            HeapNode temp;
-            int correctNodes = 0;
-            
-            // Iterate through the heap
-            for (int i = 1; i < count; i++) {
-                
-                // If a node has a value less than their parent then switch
-                if (nodes[i].getValue() < nodes[(i - 1) / d].getValue()) {
-                    temp = nodes[i];
-                    nodes[i] = nodes[(i - 1) / d];
-                    nodes[(i - 1) / d] = temp;
-                }
-                // If the node satisfies min heap then increment
-                else {
-                    correctNodes++;
+    private void heapifyDown(int start) {
+        int smallestChildIndex;
+        int currentIndex = start;
+        HeapNode temp = nodes[currentIndex];
+        while (d * currentIndex + 1 < count - 1) {
+            smallestChildIndex = d * currentIndex + 1;
+            for (int i = 1; i < d; i++) {
+                if(nodes[d * currentIndex + i + 1].getValue() < nodes[smallestChildIndex].getValue()) {
+                    smallestChildIndex = d * currentIndex + i + 1;
                 }
             }
-            // When every node (except the first) is correct then we break
-            if (count == 0 || correctNodes == count - 1) {
+            if (nodes[smallestChildIndex].getValue() < temp.getValue()) {
+                nodes[currentIndex] = nodes[smallestChildIndex];
+            }
+            else {
                 break;
             }
+            currentIndex = smallestChildIndex;
         }
+        nodes[currentIndex] = temp;   
     }
     
     /**
