@@ -125,21 +125,29 @@ public class MinHeap {
         int smallestChildIndex;
         int currentIndex = start;
         HeapNode temp = nodes[currentIndex];
+        
+        // Loop until we hit the bottom of the tree
         while (d * currentIndex + 1 < count - 1) {
+            
+            // Find the smallest child in the current node
             smallestChildIndex = d * currentIndex + 1;
             for (int i = 1; i < d; i++) {
                 if(nodes[d * currentIndex + i + 1].getValue() < nodes[smallestChildIndex].getValue()) {
                     smallestChildIndex = d * currentIndex + i + 1;
                 }
             }
+            
+            // If the smallest child of the current node is smaller than the current node, switch them
             if (nodes[smallestChildIndex].getValue() < temp.getValue()) {
                 nodes[currentIndex] = nodes[smallestChildIndex];
             }
+            // If not, then the heap property is satisfied and break
             else {
                 break;
             }
             currentIndex = smallestChildIndex;
         }
+        // Finish the swap
         nodes[currentIndex] = temp;   
     }
     
